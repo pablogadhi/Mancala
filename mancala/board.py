@@ -13,23 +13,26 @@ class Board():
             self.board[next_pos] += 1
             self.last_position = next_pos
         self.board[position] = 0
+        self.try_to_take_beans()
         self.next_turn()
 
     def next_turn(self):
-        if self.last_position == int(len(self.board)/2) - 1 and self.player0_turn:
+        if self.last_position == 6 and self.player0_turn:
             return
-        elif self.last_position == len(self.board) - 1 and not self.player0_turn:
+        elif self.last_position == 13 and not self.player0_turn:
             return
         self.player0_turn = not self.player0_turn
 
     def try_to_take_beans(self):
-        sub_index = self.last_position % 7
-        first_half_val = self.board[:7][sub_index]
-        second_half_val = self.board[7:].reverse()[sub_index]
-        if first_half_val == 1 and self.last_position < 6:
-            pass
-        elif second_half_val == 1 and self.last_position > 6:
-            pass
+        if self.board[self.last_position] == 1:
+            mirror_index = 12 - self.last_position
+            if self.board[mirror_index] != 0:
+                house_index = 6
+                if not self.player0_turn:
+                    house_index = 13
+                self.board[house_index] += self.board[mirror_index] + 1
+                self.board[mirror_index] = 0
+                self.board[self.last_position] = 0
 
     def empty_side(self, start, end):
         for i in range(start, end):
