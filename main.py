@@ -51,7 +51,7 @@ def start_game(stdscr):
                     mancala_board.make_move(key_as_int - 1)
                     print_screen(stdscr, mancala_board)
                     while not mancala_board.player0_turn and not mancala_board.game_finished():
-                        next_move = decide_next_move(mancala_board, 10000)
+                        next_move = decide_next_move(mancala_board, 50000)
                         mancala_board.make_move(next_move)
                         print_screen(stdscr, mancala_board)
 
